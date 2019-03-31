@@ -4,7 +4,7 @@ This Action runs can be used to notify [Keel](https://keel.sh) about docker imag
 
 ## Usage
 
-It is **important** to run `actions/docker/tag` prior to exucting the `keel-webhook-action`, because the `keel-webhook-action` uses the `$IMAGE_REF` pushed by `actions/docker/tag`.
+It is **important** to run `actions/docker/tag` with its `--env` flag set prior to exucting the `keel-webhook-action`, because the `keel-webhook-action` uses the `$IMAGE_REF` pushed by `https://github.com/actions/docker/tree/master/tag`.
 
 ```hcl
 workflow "Update Docker Image" {
@@ -38,7 +38,7 @@ action "Docker Push" {
 }
 
 action "Send Keel notifications" {
-  uses = "rkusa/keel-webhook-action"
+  uses = "rkusa/keel-webhook-action@master"
   needs = ["Docker Push"]
   args = "your-registry.com/your-image"
   secrets = ["KEEL_USERNAME", "KEEL_PASSWORD"]
@@ -63,7 +63,7 @@ Send notification for one image ...
 
 ```hcl
 action "Send Keel notifications" {
-  uses = "rkusa/keel-webhook-action"
+  uses = "rkusa/keel-webhook-action@master"
   args = "your-registry.com/your-image"
   secrets = ["KEEL_USERNAME", "KEEL_PASSWORD"]
   env = {
@@ -76,7 +76,7 @@ action "Send Keel notifications" {
 
 ```hcl
 action "Send Keel notifications" {
-  uses = "rkusa/keel-webhook-action"
+  uses = "rkusa/keel-webhook-action@master"
   args = "your-registry.com/first-image your-registry.com/second-image"
   secrets = ["KEEL_USERNAME", "KEEL_PASSWORD"]
   env = {
