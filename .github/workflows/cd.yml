@@ -1,0 +1,25 @@
+on: push
+name: Continuous Delivery
+jobs:
+  dockerBuild:
+    name: Continuous Delivery
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Docker Build
+      uses: actions/docker/cli@master
+      with:
+        args: build -t keel-webhook-action .
+    - name: Docker Tag
+      uses: actions/docker/tag@master
+      with:
+        args: --no-sha keel-webhook-action rkusa/keel-webhook-action
+    - name: Docker Login
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Docker Push
+      uses: actions/docker/cli@master
+      with:
+        args: push rkusa/keel-webhook-action
