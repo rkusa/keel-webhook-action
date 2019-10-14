@@ -56,6 +56,7 @@ action "Send Keel notifications" {
 ### Environment variables
 
 * `KEEL_WEBHOOK_URL` - **Required**. The URL to your Keel installation.
+* `IMAGE_TAG` - **Required**. The docker image tag the notification should be send to.
 
 #### Example
 
